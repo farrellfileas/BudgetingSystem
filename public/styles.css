@@ -1,0 +1,48 @@
+body {
+	background-color: #A9A9A9;
+}
+
+#container {
+	background-color: HoneyDew;
+	width: 80%;
+	height: 500px;
+	margin: auto;
+	margin-top: 20px;
+	padding-top: 10px;
+}
+
+#container > h1, #buttons, #inputView, #viewView {
+	text-align: center;
+}
+
+#buttons > button {
+	margin: 0 10px;
+	margin-bottom: 15px;
+	font-size: 18px;
+}
+
+.hidden {
+	display: none;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+#inputView > div {
+	margin: 7px;
+}
+
+input[type=text] {
+	height: 100px;
+}
+
+#viewView span {
+	margin: 0 20px;
+}
+
+#viewView > div {
+	margin-top: 15px;
+}
