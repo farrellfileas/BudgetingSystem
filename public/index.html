@@ -1,11 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Budgeting System</title>
 	<link rel="stylesheet" href="styles.css">
 	<script src="index.js"></script>
 </head>
 <body>
-	Hello, World!
+	<div id="container">
+		<h1>Budgeting System</h1>
+		<hr>
+		<div id="buttons">
+			<button id="input">Input</button>
+			<button id="view">View</button>
+		</div>
+		<div id="inputView" class="hidden">
+			<div>
+				<span>Enter date:</span>
+				<input type="date">
+			</div>
+			<div>
+				<span>Enter spending: $</span>
+				<input type="number">
+			</div>
+			<div>
+				<span>Description:</span>
+				<input type="text">
+			</div>
+			<button>Submit Input</button>
+		</div>
+		<div id="viewView">
+			<h3>Enter Date Range</h3>
+			<span>Start: <input type="date"></span>
+			<span>End: <input type="date"></span>
+		</div>
+	</div>
 </body>
 </html>
