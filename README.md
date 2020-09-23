@@ -7,6 +7,7 @@ npm install express
 npm install -g nodemon
 npm install sqlite3
 npm install sqlite
+npm install multer
 
 to run server:
 nodemon
