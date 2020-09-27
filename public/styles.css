@@ -1,14 +1,14 @@
 body {
 	background-color: #A9A9A9;
+	font-family: 'Oswald', serif;
 }
 
 #container {
 	background-color: HoneyDew;
 	width: 80%;
-	height: 500px;
 	margin: auto;
 	margin-top: 20px;
-	padding-top: 10px;
+	padding: 20px;
 }
 
 #container > h1, #buttons, #inputView, #viewView {
@@ -45,4 +45,52 @@ input[type=text] {
 
 #viewView > div {
 	margin-top: 15px;
+}
+
+#displayView {
+	width: 80%;
+	margin: auto;
+	margin-top: 20px;
+}
+
+.viewEntry {
+	background-color: #BDB76B;
+	border-color: black;
+	border-style: solid;
+	border-width: 1px;
+	text-align: left;
+	padding: 5px;
+}
+
+.viewEntry:hover {
+	background-color: #d7d4a7;
+	cursor: pointer;
+}
+
+.viewEntry > p {
+	margin: 0;
+}
+
+.amtAndDate {
+	font-weight: lighter;
+	font-style: italic;
+}
+
+.popup {
+	position: fixed;
+	padding-top: 100px;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.popup > div {
+	background-color: white;
+	width: 80%;
+	margin: auto;
+	border: 1px solid black;
+	padding: 20px;
 }

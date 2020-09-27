@@ -37,6 +37,19 @@ app.post("/input", async function(req, res) {
 	}
 });
 
+app.get("/expenses", async function(req, res) {
+	try {
+		let db = await getDBConnection();
+		let qry = "SELECT * FROM Spending WHERE date BETWEEN ? AND ? ORDER BY date DESC";
+
+		let result = await db.all(qry, [req.query.start, req.query.end]);
+		res.json(result);
+	} catch (err) {
+		res.type('text');
+		res.status(SERVER_ERROR).send(SRVER_ERROR_MSG);
+	}
+});
+
 const PORTNUM = 8000;
 app.use(express.static("public"));
 const PORT = process.env.PORT || PORTNUM;

@@ -4,6 +4,7 @@
 <head>
 	<title>Budgeting System</title>
 	<link rel="stylesheet" href="styles.css">
+	<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap" rel="stylesheet">
 	<script src="index.js"></script>
 </head>
 <body>
@@ -34,7 +35,20 @@
 
 			<div id="displayView">
 			</div>
-		</div>
+
+			<div class="popup hidden">
+				<div>
+					<div id="popup-content">
+						<div><span>Enter date:</span> <input type="date"></div>
+						<div><span>Enter amount spent: $</span> <input type="number"></div>
+						<div><span>Description: </span><textarea></textarea></div>
+					</div>
+
+					<button id="close">Close</button>
+					<button id="delete">Delete Entry</button>
+					<Button id="save" disabled>Save Changes</Button>
+				</div>
+			</div>
 	</div>
 
 </body>
