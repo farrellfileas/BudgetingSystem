@@ -1,5 +1,4 @@
 #container {
-	/*background-color: HoneyDew;*/
 	width: 80%;
 	margin: auto;
 	margin-top: 20px;
@@ -30,9 +29,6 @@ input[type=number]::-webkit-outer-spin-button {
 	margin: 7px;
 }
 
-input[type=text] {
-	height: 100px;
-}
 
 #viewView span {
 	margin: 0 20px;

@@ -105,13 +105,6 @@
 		displayInputView();
 	}
 
-	function checkStatus(response) {
-	    if (response.ok) {
-	      return response;
-	    }
-	    throw Error("Error in request: " + response.statusText);
-	}
-
 	function displayInputView() {
 		let inputs = qsa("#inputView input, #inputView textarea");
 
@@ -169,5 +162,12 @@
 
 	function id(selector) {
 		return document.getElementById(selector);
+	}
+
+	function checkStatus(response) {
+	    if (response.ok) {
+	      return response;
+	    }
+	    throw Error("Error in request: " + response.statusText);
 	}
 })();

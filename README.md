@@ -3,12 +3,7 @@
 ## After installing Node:
 
 * npm init (just keep clicking enter)
-* npm install express
-* npm install -g nodemon
-* npm install sqlite3
-* npm install sqlite
-* npm install multer
-
+* npm install express nodemon sqlite3 sqlite multer body-parser bcrypt passport express-flash express-session method-override
 * nodemon (to run the server)
 
 Website will be hosted on port 8000

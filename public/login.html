@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="styles.css">
+	<script src="util.js"></script>
+</head>
+<body class="bg-dark">
+	<div id="container" class="border rounded bg-white"> 
+		<h1> Budgeting System</h1>
+		<hr>
+		<form class="form-group" action="/login" method="POST">
+			<div class="col-md-6">
+				<label for="username">Username</label>
+				<input name="username" type="text" class="form-control" autocomplete="off">
+				<div id="invalid-user" class="invalid-feedback">No such username</div>
+			</div>
+			<div class="col-md-6">
+				<label for="password">Password</label>
+				<input name="password" type="password" class="form-control" autocomplete="off">
+				<div id="invalid-password" class="invalid-feedback">Password doesn't match</div>
+			</div>
+			<div class="col-md-6 mt-4">
+				<button type="submit" class="btn btn-primary rounded">Login</button>
+				<a href="/register" class="ml-2 text-primary">Register</a>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
