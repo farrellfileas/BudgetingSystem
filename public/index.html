@@ -5,23 +5,24 @@
 	<title>Budgeting System</title>
 	<link rel="stylesheet" href="styles.css">
 	<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="index.js"></script>
 </head>
-<body>
-	<div id="container">
+<body class="bg-secondary">
+	<div id="container" class="border rounded bg-white">
 		<h1> Budgeting System </h1>
 		<hr>
 
 		<div id="buttons">
-			<button id="input">Input</button>
-			<button id="view">View</button>
+			<button id="input" class="btn btn-primary border border-dark">Input</button>
+			<button id="view" class="btn btn-primary border border-dark">View</button>
 		</div>
 
 		<div id="inputView" class="hidden">
 			<div><span>Enter date:</span> <input type="date"></div>
 			<div><span>Enter amount spent: $</span> <input type="number"></div>
 			<div><span>Description: </span><textarea></textarea></div>
-			<button id="submitInput">SUBMIT</button>
+			<button id="submitInput" class="btn btn-primary border border-dark">SUBMIT</button>
 
 			<h2 class="hidden"> Success! You may input another value </h2>
 			<h2 class="hidden"> Failure </h2>
@@ -31,7 +32,7 @@
 			<h3> Enter Date Range </h3>
 			<span> Start: <input type="date"> </span>
 			<span> End: <input type="date"> </span>
-			<div><button id="submitView">SUBMIT</button><div>
+			<div><button id="submitView" class="btn btn-primary border border-dark">SUBMIT</button><div>
 
 			<div id="displayView">
 			</div>
