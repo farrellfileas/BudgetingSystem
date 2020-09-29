@@ -8,6 +8,7 @@
         id("view").addEventListener("click", displayViewView);
         setCalendarLimit();
         id("submitInput").addEventListener("click", postInput);
+        id("submitView").addEventListener("click", getInfo);
     }
 
     function postInput() {
@@ -15,15 +16,54 @@
         let amount = qs("#inputView input[type=number").value;
         let description = qs("#inputView input[type=text]").value;
         
-        let requestBody = new FormData();
-        requestBody.append("date", date);
-        requestBody.append("amount", amount);
-        requestBody.append("description", description);
+        if (date != "" && amount != "" && description != "") {
+            let requestBody = new FormData();
+            requestBody.append("date", date);
+            requestBody.append("amount", amount);
+            requestBody.append("description", description);
     
-        fetch("/input", {method : "POST", body : requestBody})
-        .then(checkStatus)
-        .then(resp => resp.text())
-        .then(pront);
+            fetch("/input", {method : "POST", body : requestBody})
+            .then(checkStatus)
+            .then(resp => resp.text())
+            .then(pront);
+            resetValues("#inputView");
+        }
+    }
+
+    async function getInfo() {
+        let start = qs("#viewView .start").value;
+        let end = qs("#viewView .end").value;
+        
+        if(start != "" && end != "") {
+            let url = "/expenses?start=" + start + "&end=" + end;
+            let response = await fetch(url, {method: "GET"})
+            .then(checkStatus)
+            .then(resp => resp.json())
+
+            qs("#displayView").classList.remove("hidden");
+
+            console.log(response);
+
+            id("displayView").innerHTML = "";
+            for (let i = 0; i < response.length; i++) {
+                let div = document.createElement("div");
+                div.classList.add("viewEntry");
+
+                let p = document.createElement("p");
+                p.textContent = "Date: " + response[i].date;
+                div.appendChild(p);
+                
+                let u = document.createElement("p");
+                u.textContent = "$" + response[i].spent;
+                div.appendChild(u);
+
+                let k = document.createElement("p");
+                k.textContent = "Description: " + response[i].description;
+                div.appendChild(k);
+
+                id("displayView").appendChild(div);
+            }
+        }
     }
 
     function pront(resp) {
@@ -40,6 +80,7 @@
     function displayInputView() {
         qs("#inputView").classList.remove("hidden");
         qs("#viewView").classList.add("hidden");
+        qs("#displayView").classList.add("hidden");
         resetValues("#inputView");
     }
 

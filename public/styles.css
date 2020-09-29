@@ -6,10 +6,9 @@ body {
     display: block;
     background-color: lightgreen;
     width: 80%;
-    height: 300px;
     margin: auto;
     margin-top: 30px;
-    padding: 5px;
+    padding: 20px;
 }
 
 #container > h1, #buttons, #inputView, #viewView {
@@ -29,6 +28,34 @@ body {
     margin: 10px;
 }
 
+#viewView button {
+    margin-top: 10px;
+}
+
 .hidden {
     display: none;
 }
+
+.viewEntry {
+    background-color: white;
+    border-color: black;
+    border-style: solid;
+    border-radius: 1px;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.viewEntry:hover {
+    background-color: lightgrey;
+    cursor: pointer;
+}
+
+#displayView {
+    margin: 5px auto;
+    width: 65%;
+}
+
+#displayView p {
+    margin: 0;
+}
+
