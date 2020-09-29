@@ -2,31 +2,39 @@
 
 (function() {
 	window.addEventListener("load", init);
+	let uid;
 
+	/**
+	  * Initialize all event listeners
+	  * Set uid for session
+	  */
 	function init() {
+		fetch('/user')
+		  .then(checkStatus)
+		  .then(resp=>resp.json())
+		  .then(resp => {uid = resp.uid; id('username').textContent += " " + resp.username});
+
 		id("input").addEventListener("click", displayInputView);
 		id("view").addEventListener('click', displayViewView);
-		setCalendarLimit();
 		id("submitInput").addEventListener('click', postInput);
 		id("submitView").addEventListener('click', getValues);
-		id("close").addEventListener('click', closePopup);
 	}
 
-	function closePopup() {
-		qs(".popup").classList.add("hidden");
-	}
-
-	async function getValues() {
+	/**
+	  * Displays the user requested expenses
+	  */
+	async function getValues(e) {
 		let dates = qsa("#viewView input");
 		let start = dates[0].value;
 		let end = dates[1].value;
 
 		if (start === "" || end === "") {
-			alert("Please make sure that no fields are blank.");
 			return;
 		}
 
-		let url = "/expenses?start=" + start + "&end=" + end;
+		e.preventDefault();
+
+		let url = "/expenses?uid=" + uid + "&start=" + start + "&end=" + end;
 
 		let response = await fetch(url, {method : "GET"})
 		  .then(checkStatus)
@@ -62,35 +70,29 @@
 			p.style = "margin-top: 5px";
 			div.appendChild(p);
 
-			div.addEventListener("click", updateData);
-
 			displayView.appendChild(div);
 		}
 
 		displayView.classList.remove("hidden");
 	}
 
-	function updateData() {
-		let content = id("popup-content");
-
-		qs("#popup-content input[type=date]").value = this.children[0].textContent;
-		qs("#popup-content input[type=number]").value = parseInt(this.children[1].textContent.substring(1));
-		qs("#popup-content textarea").value = this.children[2].textContent.substring(13);
-
-		qs(".popup").classList.remove("hidden");
-	}
-
-	async function postInput() {
+	/**
+	  * Submits user expense into database
+	  */
+	async function postInput(e) {
 		let date = qs("#inputView input[type=date]").value; 
 		let amount = qs("#inputView input[type=number]").value;
 		let description = qs("#inputView textarea").value;
 
-		if (date === "" || description === "" || amount === "") {
-			alert("Please make sure that no fields are blank.");
+		if (date === "" || amount === "" || description === "") {
 			return;
 		}
 
+
+		e.preventDefault();
+
 		let requestBody = new FormData();
+		requestBody.append("uid", uid);
 		requestBody.append("date", date);
 		requestBody.append("amount", amount);
 		requestBody.append("description", description);
@@ -105,6 +107,9 @@
 		displayInputView();
 	}
 
+	/**
+	  * Displays and resets the input view. Closes view view.
+	  */
 	function displayInputView() {
 		let inputs = qsa("#inputView input, #inputView textarea");
 
@@ -114,8 +119,12 @@
 
 		id("inputView").classList.remove("hidden");
 		id("viewView").classList.add("hidden");
+		setCalendarLimit();
 	}
 
+	/**
+	  * Displays and resess the view view. Closes the input view
+	  */
 	function displayViewView() {
 		let inputs = qsa("#viewView input");
 
@@ -125,8 +134,12 @@
 
 		id("inputView").classList.add("hidden");
 		id("viewView").classList.remove("hidden");
+		setCalendarLimit();
 	}
 
+	/**
+	  * Sets all calendar's max attribute into today
+	  */
 	function setCalendarLimit() {
 		let date = new Date();
 
@@ -146,9 +159,9 @@
 		let todaysDate = year + "-" + month + "-" + day;
 
 		let calendars = qsa("input[type=date]");
-
 		for (let i = 0; i < calendars.length; i++) {
 			calendars[i].max = todaysDate;
+			calendars[i].value = todaysDate;
 		}
 	}
 

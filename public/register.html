@@ -4,29 +4,37 @@
 	<title>Login</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" href="styles.css">
+	<script src="register.js"></script>
 </head>
 <body class="bg-dark">
 	<div id="container" class="border rounded bg-white"> 
 		<h1> Budgeting System</h1>
 		<hr>
-		<form class="form-group" action="/register" method="POST">
+		<form id="reg-form" class="form-group">
 			<h2 class="col-md-6">Register</h2>
 			<div class="col-md-6">
 				<label for="username">Username</label>
-				<input name="username" type="text" class="form-control" autocomplete="username">
+				<input name="username" type="text" class="form-control" autocomplete="username" required>
+				<div id="username-exists" class="invalid-feedback"></div>
 			</div>
 			<div class="col-md-6">
 				<label for="password">Password</label>
-				<input name="password" type="password" class="form-control" autocomplete="new-password">
+				<input id ="password" name="password" type="password" class="form-control" autocomplete="new-password" required>
+				<div id="password-invalid" class="invalid-feedback">Password must be at least 6 characters long.</div>
 			</div>
 			<div class="col-md-6">
 				<label for="retypepassword">Retype Password</label>
-				<input type="password" class="form-control" autocomplete="new-password">
+				<input id="retype" type="password" class="form-control" autocomplete="new-password" required>
+				<div id="retype-invalid" class="invalid-feedback">Retyped password is different from original password</div>
 			</div>
 			<div class="col-md-6 mt-4">
-				<button type="submit" class="btn btn-primary rounded">Sign-Up</button>
+				<button type="submit" class="btn btn-primary rounded" disabled>Sign-Up</button>
+				<a href="/login" class="ml-2">Login</a>
 			</div>
 		</form>
+		<div id="success" class="d-none">
+			Signed-up successfully! Sign-in through <a href="/login">login page</a>
+		</div>
 	</div>
 </body>
 </html>

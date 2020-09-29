@@ -14,7 +14,6 @@ const passport = require('passport');
 const flash = require('express-flash');
 const session = require('express-session');
 const methodOverride = require('method-override');
-
 const initializePassport = require('./passport-config')
 initializePassport(
 	passport, 
@@ -61,10 +60,17 @@ app.get('/', checkAuthenticated, (req, res) => {
 });
 
 /**
-  * 
+  * Returns the error of the previous login
   */
 app.get('/loginerror', (req, res) => {
 	res.send(req.flash('error'));
+});
+
+/**
+  * Returns the username of current login
+  */
+app.get('/user', async (req, res) => {
+	res.send(await req.user)
 });
 
 /**
@@ -88,7 +94,12 @@ app.post('/register', async (req, res) => {
 		let result = await db.all(qry, [req.body.username]);
 
 		if (result.length > 0) {
-			res.status(INVALID_PARAM_ERROR).json({message: "Username " + req.body.username + " already exists"});
+			res.json({message: "Username " + req.body.username + " already exists"});
+			return;
+		}
+
+		if (req.body.password.length < 6) {
+			res.json({message: "Password must be at least 6 characters long."});
 			return;
 		}
 
@@ -96,7 +107,7 @@ app.post('/register', async (req, res) => {
 		qry = "INSERT INTO Users (username, password) VALUES (?, ?)";
 		await db.run(qry, [req.body.username, hashedPassword]);
 
-		res.redirect("/");
+		res.json({message: "Success"});
 	} catch (e) {
 		res.type('text');
 		res.status(SERVER_ERROR).send(SRVER_ERROR_MSG);
@@ -106,11 +117,11 @@ app.post('/register', async (req, res) => {
 /**
   * Input data to spending table for specific user
   */
-app.post("/input", async function(req, res) {
+app.post("/input", checkAuthenticated, async function(req, res) {
 	try {
 		let db = await getDBConnection();
-		let qry = "INSERT INTO Spending (date, spent, description) VALUES (?, ?, ?)";
-		await db.run(qry, [req.body.date, req.body.amount, req.body.description]);
+		let qry = "INSERT INTO Spending (date, spent, description, uid) VALUES (?, ?, ?, ?)";
+		await db.run(qry, [req.body.date, req.body.amount, req.body.description, req.body.uid]);
 
 		res.type('text');
 		res.send("Successfully inserted values");
@@ -123,12 +134,12 @@ app.post("/input", async function(req, res) {
 /**
   * Gets expenses from spending table for a specific user
   */
-app.get("/expenses", async function(req, res) {
+app.get("/expenses", checkAuthenticated, async function(req, res) {
 	try {
 		let db = await getDBConnection();
-		let qry = "SELECT * FROM Spending WHERE date BETWEEN ? AND ? ORDER BY date DESC";
+		let qry = "SELECT * FROM Spending WHERE ?=uid AND date BETWEEN ? AND ? ORDER BY date DESC";
 
-		let result = await db.all(qry, [req.query.start, req.query.end]);
+		let result = await db.all(qry, [req.query.uid, req.query.start, req.query.end]);
 		res.json(result);
 	} catch (err) {
 		res.type('text');

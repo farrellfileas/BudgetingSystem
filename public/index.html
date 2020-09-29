@@ -10,10 +10,13 @@
 </head>
 <body class="bg-secondary">
 	<div id="container" class="border rounded bg-white">
-		<h1 > Budgeting System </h1>
-		<form action="/logout?_method=DELETE" method="POST" class="pull-right">
-			<button type="submit" class="btn border border-dark btn-primary">Log Out</button>
-		</form>
+		<div class="col-md-6">
+			<h1 class=""> Budgeting System </h1>
+			<div id="username" class="text-info">Logged in as</div>
+			<form action="/logout?_method=DELETE" method="POST" class="mt-2">
+				<button type="submit" class="btn border border-dark btn-primary btn-sm">Log Out</button>
+			</form>
+		</div>
 		<hr>
 
 		<div id="buttons">
@@ -21,39 +24,25 @@
 			<button id="view" class="btn btn-primary border border-dark">View</button>
 		</div>
 
-		<div id="inputView" class="hidden">
-			<div><span>Enter date:</span> <input type="date"></div>
-			<div><span>Enter amount spent: $</span> <input type="number"></div>
-			<div><span>Description: </span><textarea></textarea></div>
+		<form id="inputView" class="hidden">
+			<div><span>Enter date:</span> <input id="date" type="date" required></div>
+			<div><span>Enter amount spent: $</span> <input type="number" required></div>
+			<div><span>Description: </span><textarea required></textarea></div>
 			<button id="submitInput" class="btn btn-primary border border-dark">SUBMIT</button>
 
 			<h2 class="hidden"> Success! You may input another value </h2>
 			<h2 class="hidden"> Failure </h2>
-		</div>
+		</form>
 
-		<div id="viewView" class="hidden">
+		<form id="viewView" class="hidden">
 			<h3> Enter Date Range </h3>
-			<span> Start: <input type="date"> </span>
-			<span> End: <input type="date"> </span>
-			<div><button id="submitView" class="btn btn-primary border border-dark">SUBMIT</button><div>
+			<span> Start: <input type="date" required> </span>
+			<span> End: <input type="date" required> </span>
+			<div><button id="submitView" class="btn btn-primary border border-dark">SUBMIT</button></div>
 
 			<div id="displayView">
 			</div>
-
-			<div class="popup hidden">
-				<div>
-					<div id="popup-content">
-						<div><span>Enter date:</span> <input type="date"></div>
-						<div><span>Enter amount spent: $</span> <input type="number"></div>
-						<div><span>Description: </span><textarea></textarea></div>
-					</div>
-
-					<button id="close">Close</button>
-					<button id="delete">Delete Entry</button>
-					<Button id="save" disabled>Save Changes</Button>
-				</div>
-			</div>
+		</form>
 	</div>
-
 </body>
 </html>

@@ -12,7 +12,7 @@ function initialize(passport, getUserByUsername, getUserById) {
 			if (await bcrypt.compare(password, user.password)) {
 				return done(null, user);
 			} else {
-				return done(null, false, {message: "password"});
+				return done(null, false, {message: "password " + username});
 			}
 		} catch (e) {
 			return done(e);
