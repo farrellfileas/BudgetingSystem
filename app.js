@@ -38,12 +38,8 @@ const INVALID_PARAM_ERROR = 400;
 const SERVER_ERROR = 500;
 const SRVER_ERROR_MSG = 'Something went wrong on the server.';
 
-const filterCategory = ["Restaurant and Dining",
-						"Driving/Transportation",
-						"Technology",
-						"Data Plan",
-						"Insurance",
-						"Electricity"];
+const filterCategory = ["Bill Payments", "Data Plan", "Driving & Travelling", "Groceries", "Housing", "Insurance & Healthcare", 
+			"Recreation & Entertainment", "Restaurant and Dining", "Technology", "Utilities", "Other"];
 
 /**
   * Serves the login page
