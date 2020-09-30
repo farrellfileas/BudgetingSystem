@@ -18,8 +18,45 @@
 		id("view").addEventListener('click', displayViewView);
 		id("submitInput").addEventListener('click', postInput);
 		id("submitView").addEventListener('click', getValues);
+		id('save').addEventListener('click', saveChanges);
+		id('delete').addEventListener('click', deleteEntry);
 	}
 
+	async function saveChanges(e) {
+		let modalBody = qs('#modal .modal-body');
+
+		e.preventDefault();
+		let eid = modalBody.eid;
+		let form = new FormData(qs('#modal'));
+		form.append('id', eid);
+
+		await fetch('/update', {method: "POST", body: form})
+		  .then(checkStatus)
+		  .then(resp=>resp.text());
+
+		qs('#modal .d-inline').textContent = "Update ";
+		id('edit-result').classList.remove('d-none');
+		id('edit').classList.add('d-none');
+		qs('.modal-footer').classList.add('d-none');
+	}
+
+	async function deleteEntry(e) {
+		let modalBody = qs('#modal .modal-body');
+
+		e.preventDefault();
+		let eid = modalBody.eid;
+		let form = new FormData();
+		form.append('id', eid);
+
+		await fetch('/delete', {method: "POST", body: form})
+		  .then(checkStatus)
+		  .then(resp=>resp.text());
+
+		qs('#modal .d-inline').textContent = "Deletion ";
+		id('edit-result').classList.remove('d-none');
+		id('edit').classList.add('d-none');
+		qs('.modal-footer').classList.add('d-none');
+	}
 	/**
 	  * Displays the user requested expenses
 	  */
@@ -54,6 +91,9 @@
 		for (let i = 0; i < response.length; i++) {
 			let div = document.createElement("div");
 			div.classList.add("viewEntry");
+			div.classList.add('border');
+			div.classList.add('border-dark');
+			div.classList.add('rounded')
 
 			let p = document.createElement("p");
 			p.textContent = response[i].date;
@@ -70,10 +110,51 @@
 			p.style = "margin-top: 5px";
 			div.appendChild(p);
 
+			div.setAttribute("data-toggle", "modal");
+			div.setAttribute("data-target", "#modal");
+
+			div.addEventListener('click', function() {
+				let date = qs('#modal input[type=date]');
+				let amt = qs('#modal input[type=number]');
+				let desc = qs('#modal textarea');
+
+				date.value = response[i].date;
+				amt.value = response[i].spent;
+				desc.value = response[i].description;
+				qs('#modal .modal-body').eid = response[i].id;
+
+				id('edit-result').classList.add('d-none');
+				id('edit').classList.remove('d-none');
+				qs('.modal-footer').classList.remove('d-none');
+			})
+
 			displayView.appendChild(div);
 		}
 
 		displayView.classList.remove("hidden");
+	}
+
+	function createTrashIcon() {
+		let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+		svg.setAttribute('width', '1em');
+		svg.setAttribute('height', '1em');
+		svg.setAttribute('viewBox', '0 0 16 16')
+		svg.classList.add('bi');
+		svg.classList.add('bi-trash');
+		svg.setAttribute('fill', 'currentColor');
+		svg.setAttribute('xmlns', "http://www.w3.org/2000/svg");
+
+		let path1 = document.createElementNS('http://www.w3.org/svg', 'path');
+		path1.setAttribute('d', "M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z");
+
+		let path2 = document.createElementNS('http://www.w3.org/svg', 'path');
+		path2.setAttribute('fill-rule', 'evenodd');
+		path2.setAttribute('d', "M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z");
+
+		svg.appendChild(path1);
+		svg.appendChild(path2);
+
+		return svg;
 	}
 
 	/**

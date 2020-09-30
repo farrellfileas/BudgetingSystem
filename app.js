@@ -38,6 +38,13 @@ const INVALID_PARAM_ERROR = 400;
 const SERVER_ERROR = 500;
 const SRVER_ERROR_MSG = 'Something went wrong on the server.';
 
+const filterCategory = ["Restaurant and Dining",
+						"Driving/Transportation",
+						"Technology",
+						"Data Plan",
+						"Insurance",
+						"Electricity"];
+
 /**
   * Serves the login page
   */
@@ -129,6 +136,46 @@ app.post("/input", checkAuthenticated, async function(req, res) {
 		res.type('text');
 		res.status(SERVER_ERROR).send(SRVER_ERROR_MSG);
 	}
+});
+
+/**
+  * Updates the specified post with new values
+  */
+app.post('/update', checkAuthenticated, async function(req, res) {
+	try {
+		let db = await getDBConnection();
+		let qry = "UPDATE Spending SET date=?, spent=?, description=? WHERE id=?"
+		await db.run(qry, [req.body.date, req.body.amt, req.body.desc, req.body.id]);
+
+		res.type('text');
+		res.send('Successfully updated values');
+	} catch (e) {
+		res.type('text')
+		res.status(SERVER_ERROR).send(SRVER_ERROR_MSG);
+	}
+});
+
+/**
+  * Deletes spending entry with specified id
+  */
+app.post('/delete', checkAuthenticated, async function(req, res) {
+	try {
+		let db = await getDBConnection();
+		let qry = "DELETE FROM Spending WHERE id=?";
+		await db.run(qry, [req.body.id]);
+		res.type('text');
+		res.send('Successfully deleted values');
+	} catch (e) {
+		res.type('text');
+		res.status(SERVER_ERROR).send(SRVER_ERROR_MSG);
+	}
+});
+
+/**
+  * Returns the list of filters
+  */
+app.get("/filterList", (req, res) => {
+	res.json(filterCategory);
 });
 
 /**
