@@ -29,21 +29,29 @@
 		<hr>
 
 		<div id="buttons">
-			<button id="input" class="btn btn-primary border border-dark">Input</button>
-			<button id="view" class="btn btn-primary border border-dark">View</button>
+			<button id="input" class="btn btn-primary ">Input</button>
+			<button id="view" class="btn btn-primary ">View</button>
 		</div>
 
-		<form id="inputView" class="hidden">
+		<form id="inputView" class="d-none">
 			<div><span>Enter date:</span> <input id="date" type="date" required></div>
-			<div><span>Enter amount spent: $</span> <input type="number" required></div>
+			<div><span>Enter amount spent: <span class="currency"></span></span> <input type="number" pattern="^\d+(?:\.\d{1,2})?$" required></div>
 			<div><span>Description: </span><textarea required></textarea></div>
-			<button id="submitInput" class="btn btn-primary border border-dark">SUBMIT</button>
+			<div class="btn-group ">
+				<div id="category-text" class="btn btn-primary">Category</div>
+				<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    <span class="sr-only">Toggle Dropdown</span>
+				</button>
+				<div id="categoryDropdown" class="dropdown-menu">
+				</div>
+			</div>
+			<button id="submitInput" class="btn btn-primary ">SUBMIT</button>
 
-			<h2 class="hidden"> Success! You may input another value </h2>
-			<h2 class="hidden"> Failure </h2>
+			<h2 class="d-none"> Success! You may input another value </h2>
+			<h2 class="d-none"> Failure </h2>
 		</form>
 
-		<form id="viewView" class="hidden">
+		<form id="viewView" class="d-none">
 			<h3> Enter Date Range </h3>
 			<span> Start: <input type="date" required> </span>
 			<span> End: <input type="date" required> </span>
@@ -53,27 +61,37 @@
 					<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					    <span class="sr-only">Toggle Dropdown</span>
 					</button>
+					<div id="filterMenu" class="dropdown-menu">
+					</div>
+				</div>
+				<div class="btn-group">
+					<button class="btn btn-primary" id="sort">Sort by most recent</button>
+					<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    <span class="sr-only">Toggle Dropdown</span>
+					</button>
 					<div class="dropdown-menu">
-						<div class="dropdown-item">
-							<input type="checkbox" class="form-check-input" checked="">
-							<label for="food" class="form-check-label">Restaurant and Dining</label>
+						<div class="dropdown-item">	
+							<input type="radio" id="time" class="form-check-input" name="sort" val="most recent" checked="">
+							<label for="time" class="form-check-label">Most recent</label>
 						</div>
-						<div class="dropdown-divider"></div>
 						<div class="dropdown-item">
-							<input type="checkbox" class="form-check-input" checked="">
-							<label for="car" class="form-check-label">Driving/Transportation</label>
+							<input type="radio" id="dateRev" class="form-check-input" name="sort" val="least recent">
+							<label for="dateRev" class="form-check-label">Least recent</label>
 						</div>
-						<div class="dropdown-divider"></div>
 						<div class="dropdown-item">
-							<input type="checkbox" class="form-check-input" checked="">
-							<label for="util" class="form-check-label">Utilities</label>
+							<input type="radio" id="amt" class="form-check-input" name="sort" val="most expensive">
+							<label for="amt" class="form-check-label">Most Expensive</label>
+						</div>
+						<div class="dropdown-item">
+							<input type="radio" id="amtRev" class="form-check-input" name="sort" val='least expensive'>
+							<label for="amtRev" class="form-check-label">Least Expensive</label>
 						</div>
 					</div>
 				</div>
-				<button class="btn btn-primary">Sort by</button>
-				<button id="submitView" class="btn btn-primary border border-dark">SUBMIT</button>
+				<button id="submitView" class="btn btn-primary ">SUBMIT</button>
 			</div>
 
+			<h2 id="sum" class='mt-2 bg-success w-50 mx-auto'></h2>
 			<div id="displayView">
 			</div>
 		</form>
@@ -84,12 +102,12 @@
 					<div class="modal-header">
 						<h5>Edit Entry</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				          <span aria-hidden="true">&times;</span>
+				          <span aria-d-none="true">&times;</span>
 				        </button>
 				    </div>
 					<div id="edit" class="modal-body">
 						<div><label for="date">Date: </label><input name="date" type="date" required></div>
-						<div class="mt-2"><label for="amt">Amount: $</label><input name="amt" type="number" required></div>
+						<div class="mt-2"><label for="amt">Amount: <span class="currency"></span></label><input name="amt" type="number" pattern="^\d+(?:\.\d{1,2})?$" required></div>
 						<div class="mt-2"><label for="desc">Description: </label><textarea name="desc" required></textarea></div>
 					</div>
 					<div id="edit-result" class="modal-body d-none">

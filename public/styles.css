@@ -15,10 +15,6 @@
 	font-size: 18px;
 }
 
-.hidden {
-	display: none;
-}
-
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
@@ -49,10 +45,6 @@ input[type=number]::-webkit-outer-spin-button {
 	text-align: left;
 	padding: 5px;
 }
-/*
-.viewEntry:nth-child(even) {
-	background-color: DodgerBlue;
-}*/
 
 .viewEntry:hover {
 	background-color: #4dd2ff	;
@@ -71,4 +63,13 @@ input[type=number]::-webkit-outer-spin-button {
 img {
 	height: 120px;
 	width: 120px;
+}
+
+.dropdown-item label:hover{
+	cursor: pointer;
+}
+
+.dropdown-item:hover{
+	background-color: black;
+	color: white;
 }

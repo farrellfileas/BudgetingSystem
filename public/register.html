@@ -27,6 +27,17 @@
 				<input id="retype" type="password" class="form-control" autocomplete="new-password" required>
 				<div id="retype-invalid" class="invalid-feedback">Retyped password is different from original password</div>
 			</div>
+			<div class="col-md-6 mt-3">
+				<div>Select Currency</div>
+				<div class="form-check form-check-inline">
+				  <input class="form-check-input" type="radio" name="currency" id="dollar" value="$" checked="">
+				  <label class="form-check-label" for="dollar">US Dollars</label>
+				</div>
+				<div class="form-check form-check-inline">
+				  <input class="form-check-input" type="radio" name="currency" id="rupiah" value="Rp.">
+				  <label class="form-check-label" for="inlineRadio2">Indonesian Rupiah</label>
+				</div>
+			</div>
 			<div class="col-md-6 mt-4">
 				<button type="submit" class="btn btn-primary rounded" disabled>Sign-Up</button>
 				<a href="/login" class="ml-2">Login</a>

@@ -111,8 +111,8 @@ app.post('/register', async (req, res) => {
 		}
 
 		const hashedPassword = await bcrypt.hash(req.body.password, 10);
-		qry = "INSERT INTO Users (username, password) VALUES (?, ?)";
-		await db.run(qry, [req.body.username, hashedPassword]);
+		qry = "INSERT INTO Users (username, password, currency) VALUES (?, ?, ?)";
+		await db.run(qry, [req.body.username, hashedPassword, req.body.currency]);
 
 		res.json({message: "Success"});
 	} catch (e) {
@@ -127,8 +127,8 @@ app.post('/register', async (req, res) => {
 app.post("/input", checkAuthenticated, async function(req, res) {
 	try {
 		let db = await getDBConnection();
-		let qry = "INSERT INTO Spending (date, spent, description, uid) VALUES (?, ?, ?, ?)";
-		await db.run(qry, [req.body.date, req.body.amount, req.body.description, req.body.uid]);
+		let qry = "INSERT INTO Spending (date, spent, description, uid, category) VALUES (?, ?, ?, ?, ?)";
+		await db.run(qry, [req.body.date, req.body.amount, req.body.description, req.body.uid, req.body.category]);
 
 		res.type('text');
 		res.send("Successfully inserted values");
