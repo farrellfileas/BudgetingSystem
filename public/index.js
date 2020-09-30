@@ -93,6 +93,7 @@
 			input.setAttribute('type', 'radio');
 			input.setAttribute('name', 'category');
 			input.setAttribute('id', result[i] + "2");
+			input.value = result[i];
 			input.val = result[i];
 			div.appendChild(input);
 
@@ -104,6 +105,33 @@
 			div.appendChild(label);
 
 			id('categoryDropdown').appendChild(div);
+		}
+
+		for (let i = 0; i < result.length; i++) {
+			let div = document.createElement('div');
+			div.classList.add('dropdown-item');
+
+			let input = document.createElement('input');
+			if (i == 0) {
+				input.setAttribute('checked', true);
+			}
+			input.classList.add('form-check-input');
+			input.addEventListener('click', updateCategoryText);
+			input.setAttribute('type', 'radio');
+			input.setAttribute('name', 'category');
+			input.setAttribute('id', result[i] + "3");
+			input.value = result[i];
+			input.val = result[i];
+			div.appendChild(input);
+
+			let label = document.createElement("label");
+			label.classList.add("form-radio-label");
+			label.classList.add('d-block');
+			label.setAttribute('for', result[i] + "3");
+			label.textContent = result[i];
+			div.appendChild(label);
+
+			id('categoryDropdown2').appendChild(div);
 		}
 
 		id('category-text').textContent = result[0];
@@ -138,12 +166,25 @@
 		let result = "";
 		let count = 0;
 		number = number.toString();
-		for (let i = number.length - 1; i >= 0; i--) {
+
+		let indexOfDot = number.length;
+
+		for (let i = 0; i < number.length; i++) {
+			if (number.charAt(i) === '.') {
+				indexOfDot = i;
+				break;
+			}
+		} 
+
+		for (let i = number.length - 1; i >= indexOfDot; i--) {
+			result = number.charAt(i) + result;
+		}
+
+		for (let i = indexOfDot - 1; i >= 0; i--) {
 			if (count != 0 && count % 3 === 0) {
 				result = "," + result;
 			}
 			result = number.charAt(i) + result;
-			console.log(result);
 			count++;
 		}
 
@@ -155,6 +196,7 @@
 	  */
 	function updateCategoryText() {
 		id('category-text').textContent = qs('input[name=category]:checked').val;
+		id('category-text2').textContent = qs('#modal input[name=category]:checked').val;
 	}
 
 	/**
@@ -261,10 +303,13 @@
 				let date = qs('#modal input[type=date]');
 				let amt = qs('#modal input[type=number]');
 				let desc = qs('#modal textarea');
+				let modal = qs('#modal input[id=\"' + response[i].category + '3\"]');
 
 				date.value = response[i].date;
 				amt.value = response[i].spent;
 				desc.value = response[i].description;
+				modal.setAttribute('checked', true);
+				modal.click();
 				qs('#modal .modal-body').eid = response[i].id;
 
 				id('edit-result').classList.add('d-none');
@@ -285,7 +330,6 @@
 	function compareDate(date1, date2) {
 		let year1 = date1.substring(0, 4);
 		let year2 = date2.substring(0, 4);
-		console.log(year1 + " " + year2);
 		if (year1 > year2) {
 			return 1;
 		} else if (year2 > year1) {
@@ -293,7 +337,6 @@
 		} else {
 			let month1 = date1.substring(5, 7);
 			let month2 = date2.substring(5, 7);
-			console.log(month1 + " " + month2);
 
 			if (month1 > month2) {
 				return 1;
@@ -302,8 +345,6 @@
 			} else {
 				let day1 = date1.substring(8);
 				let day2 = date2.substring(8);
-				console.log(day1 + " " + day2);
-
 				if (day1 > day2) {
 					return 1;
 				} else if (day2 > day1) {

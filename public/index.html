@@ -4,6 +4,7 @@
 <head>
 	<title>Budgeting System</title>
 	<link rel="stylesheet" href="styles.css">
+	<link rel='icon' href="img/icon.jfif">
 	<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="index.js"></script>
@@ -14,8 +15,8 @@
 <body class="bg-secondary">
 	<div id="container" class="border rounded bg-white">
 		<div style='overflow: hidden'>
-			<div class="col-md-6 float-left">
-				<h1 class=""> Budgeting System </h1>
+			<div class="col-md-8 float-left">
+				<h1 class=""> AnF-Expenses Budgeting System </h1>
 				<div id="username" class="text-info">Logged in as</div>
 				<form action="/logout?_method=DELETE" method="POST" class="mt-2">
 					<button type="submit" class="btn border border-secondary btn-primary btn-sm">Log Out</button>
@@ -105,10 +106,18 @@
 				          <span aria-d-none="true">&times;</span>
 				        </button>
 				    </div>
-					<div id="edit" class="modal-body">
-						<div><label for="date">Date: </label><input name="date" type="date" required></div>
+					<div id="edit" class="modal-body text-center">
+						<div><label class="mr-2" for="date">Date: </label><input name="date" type="date" required></div>
 						<div class="mt-2"><label for="amt">Amount: <span class="currency"></span></label><input name="amt" type="number" pattern="^\d+(?:\.\d{1,2})?$" required></div>
-						<div class="mt-2"><label for="desc">Description: </label><textarea name="desc" required></textarea></div>
+						<div class="mt-2"><label class="mr-2" for="desc">Description: </label><textarea name="desc" required></textarea></div>
+						<div class="btn-group">
+							<div id="category-text2" class="btn btn-primary">Category</div>
+							<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							    <span class="sr-only">Toggle Dropdown</span>
+							</button>
+							<div id="categoryDropdown2" class="dropdown-menu">
+							</div>
+						</div>
 					</div>
 					<div id="edit-result" class="modal-body d-none">
 						<h6 class="d-inline"></h6>
@@ -117,7 +126,7 @@
 						  <path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
 						</svg>
 					</div>
-					<div class="modal-footer">
+					<div class="modal-footer justify-content-around">
 						<button id="save" class="btn btn-primary">Save Changes</button>
 						<button id="delete" class="btn btn-danger">Delete Entry</button>
 					</div>

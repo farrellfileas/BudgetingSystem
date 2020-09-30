@@ -140,8 +140,8 @@ app.post("/input", checkAuthenticated, async function(req, res) {
 app.post('/update', checkAuthenticated, async function(req, res) {
 	try {
 		let db = await getDBConnection();
-		let qry = "UPDATE Spending SET date=?, spent=?, description=? WHERE id=?"
-		await db.run(qry, [req.body.date, req.body.amt, req.body.desc, req.body.id]);
+		let qry = "UPDATE Spending SET date=?, spent=?, description=?, category=? WHERE id=?"
+		await db.run(qry, [req.body.date, req.body.amt, req.body.desc, req.body.category, req.body.id]);
 
 		res.type('text');
 		res.send('Successfully updated values');
